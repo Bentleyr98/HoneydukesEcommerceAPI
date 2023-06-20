@@ -1,6 +1,6 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const port = process.env.PORT || 8080;
+const express = require('express'); // Express
+const bodyParser = require('body-parser'); // Body-Parser
+const port = process.env.PORT || 8080; // Port
 const app = express();
 
 // We need to use this in order to fetch from other local host

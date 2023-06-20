@@ -8,7 +8,9 @@ mongoose.Promise = global.Promise;
 const db = {};
 db.mongoose = mongoose;
 db.url = dbconfig.url;
-// db.blogpost = require('./blogpost.js')(mongoose);
-// db.product = require('./product.js')(mongoose);
+db.orders = require('./orders.js')(mongoose);
+db.products = require('./products.js')(mongoose);
+db.reviews = require('./reviews.js')(mongoose);
+db.users = require('./users.js')(mongoose);
 
 module.exports = db;
