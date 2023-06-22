@@ -4,8 +4,8 @@ dotenv.config();
 
 const doc = {
   info: {
-    title: 'YWellness API',
-    description: 'An API designed for the YWellness website',
+    title: 'HoneyDukes API',
+    description: 'An API designed for the HoneyDukes website',
   },
   host: 'localhost:8080',
   schemes: ['http', 'https'],

@@ -1,1 +1,38 @@
 //this is a comment so it looks like i committed something useful.
+
+
+//PRODUCTS
+### GET all products
+GET http://localhost:8080/products HTTP/1.1
+### GET one product
+GET http://localhost:8080/products/6494709ffef8b2872b3a1c2e HTTP/1.1
+### CREATE a new product
+POST http://localhost:8080/products HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Hersey Kisses",
+  "description": "Small chocolate tear drop candies.",
+  "price": "3.99",
+  "quantityInStock": "55",
+  "category": "Candy",
+  "brand": "Hersey",
+  "images": "kisses1234.png",
+  "otherDetails": "store in a cool place"
+}
+### UPDATE a product
+PUT http://localhost:8080/products/6494709ffef8b2872b3a1c2e HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Kisses",
+  "description": "Small chocolate tear drop candies.",
+  "price": "3.99",
+  "quantityInStock": "55",
+  "category": "Candy",
+  "brand": "Hersey",
+  "images": "kisses1234.png",
+  "otherDetails": "It should be store in a cool place."
+}
+### DELETE a product
+DELETE http://localhost:8080/products/649471e4fef8b2872b3a1c34 HTTP/1.1
