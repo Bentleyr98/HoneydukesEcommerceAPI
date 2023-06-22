@@ -13,7 +13,7 @@ const getAllUsers = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
-        const userId = new ObjectId(req.params.id);
+        const userId = req.params.id;
         const result = await Users.find(userId);
         res.status(200).json(result);
     } catch (error) {
