@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require("express").Router();
 // const {
 //   getAllProducts,
 //   getProduct,
@@ -6,7 +6,7 @@ const router = require('express').Router();
 //   updateProduct,
 //   deleteProduct,
 // } = require('../controllers/orders');
-const { requiresAuth } = require('express-openid-connect');
+const { requiresAuth } = require("express-openid-connect");
 
 // router.get('/', );
 // router.get('/:id', );
