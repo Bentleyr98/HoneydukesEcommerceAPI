@@ -1,7 +1,15 @@
-//this is a comment so it looks like i committed something useful.
+######################
+# LOCALHOST
+######################
 
+// ORDERS
+### Get all orders
+GET http://localhost:8080/orders
 
-//PRODUCTS
+### Get order by id
+GET http://localhost:8080/orders/6491c0350c550bf56ffbe5d3
+
+// PRODUCTS
 ### GET all products
 GET http://localhost:8080/products HTTP/1.1
 ### GET one product
