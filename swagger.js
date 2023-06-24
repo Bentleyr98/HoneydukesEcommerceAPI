@@ -7,8 +7,8 @@ const doc = {
     title: 'HoneyDukes API',
     description: 'An API designed for the HoneyDukes website',
   },
-  host: 'localhost:8080',
-  schemes: ['http', 'https'],
+  host: 'honeydukesecommerce.onrender.com',
+  schemes: ['https'],
   securityDefinitions: {
     bearerAuth: {
       type: 'oauth2',
