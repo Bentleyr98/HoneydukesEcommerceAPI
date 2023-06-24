@@ -5,10 +5,9 @@
     "description": "An API designed for the HoneyDukes website",
     "version": "1.0.0"
   },
-  "host": "localhost:8080",
+  "host": "honeydukesecommerce.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http",
     "https"
   ],
   "securityDefinitions": {
