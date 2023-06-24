@@ -29,7 +29,7 @@ db.mongoose
   })
   .then(() => {
     app.listen(port, () => {
-      console.log(`DB Connected and server running on ${port}.`);
+      console.log(`DB Connected and server running on http://localhost:${port}.`);
     });
   })
   .catch((err) => {

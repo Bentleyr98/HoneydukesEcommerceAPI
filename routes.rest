@@ -2,8 +2,16 @@
 # LOCALHOST
 ######################
 
+### ORDERS
 ### Get all orders
 GET http://localhost:8080/orders
 
 ### Get order by id
 GET http://localhost:8080/orders/6491c0350c550bf56ffbe5d3
+
+### REVIEWS
+### Get all reviews
+GET http://localhost:8080/reviews
+
+### Get review by ID
+GET http://localhost:8080/reviews/6491c07c0c550bf56ffbe5dc
