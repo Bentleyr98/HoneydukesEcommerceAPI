@@ -2,6 +2,9 @@
 # LOCALHOST
 ######################
 
+### OAuth
+GET http://localhost:8080/
+
 // ORDERS
 ### Get all orders
 GET http://localhost:8080/orders
@@ -15,7 +18,36 @@ GET http://localhost:8080/orders/6491c0350c550bf56ffbe5d3
 GET http://localhost:8080/reviews
 
 ### Get review by ID
-GET http://localhost:8080/reviews/6491c07c0c550bf56ffbe5dc
+GET http://localhost:8080/reviews/649ba690bad05e5b5a1d54e3
+
+### Create a review
+POST http://localhost:8080/reviews HTTP/1.1
+content-type: application/json
+
+{
+  "userEmail": "test@gmail.com",
+  "productID": "2",
+  "reviewText": "Testing, testing, testing, testing 123",
+  "rating": "3",
+  "date": "6/27/2023",
+  "otherDetails": "Test details"
+}
+
+### Update a review
+PUT http://localhost:8080/reviews/649ba57cbad05e5b5a1d54db HTTP/1.1
+content-type: application/json
+
+{
+  "userEmail": "test1@gmail.com",
+  "productID": "1",
+  "reviewText": "updated Testing, testing, testing, testing 123",
+  "rating": "4",
+  "date": "6/26/2023",
+  "otherDetails": "updated Test details"
+}
+
+### Delete a review
+DELETE http://localhost:8080/reviews/649ba57cbad05e5b5a1d54db HTTP/1.1
 
 
 // PRODUCTS
