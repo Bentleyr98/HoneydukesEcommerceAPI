@@ -39,7 +39,7 @@ describe('Test Handlers', () => {
       /* update data */
     };
     const res = await request.put(`/orders/${orderId}`).send(updateData);
-    expect(res.status).toBe(200);
+    expect(res.status).toBe(204);
     // add more assertions for the response body here
   });
 
