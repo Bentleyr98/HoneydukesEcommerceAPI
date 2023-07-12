@@ -10,8 +10,8 @@ const { requiresAuth } = require("express-openid-connect");
 
 router.get("/", getAllOrders);
 router.get("/:id", getOrder);
-router.post("/", requiresAuth(), createOrder);
-router.put("/:id", requiresAuth(), updateOrder);
-router.delete("/:id", requiresAuth(), deleteOrder);
+router.post("/", createOrder); // requiresAuth(),
+router.put("/:id", updateOrder); // requiresAuth(),
+router.delete("/:id", deleteOrder); // requiresAuth(),
 
 module.exports = router;

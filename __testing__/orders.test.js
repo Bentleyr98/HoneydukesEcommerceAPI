@@ -2,16 +2,14 @@ const {
   Types: { ObjectId },
 } = require("mongoose");
 const mockingoose = require("mockingoose");
+const request = require("supertest");
+const url = "http://localhost:8080";
 const OrderModel = require("../models/orders");
-const {
-  getAllOrders,
-  getOrder,
-  createOrder,
-  updateOrder,
-  deleteOrder,
-} = require("../controllers/orders");
+const { getAllOrders, getOrder } = require("../controllers/orders");
 
 describe("Orders routes", () => {
+  let id;
+
   describe("Get all orders", () => {
     it("should return all orders", async () => {
       const mockOrder = [
@@ -115,31 +113,40 @@ describe("Orders routes", () => {
         shippingAddress: "new address",
         billingAddress: "another address",
         paymentMethod: "cash",
+        orderStatus: "opened",
+        numItemsOrdered: 2,
+        additionalDetails: "Additional order details",
+      };
+
+      const res = await request(url)
+        .post("/orders")
+        .send(mockOrder)
+        .expect(201);
+
+      id = res.body._id;
+    });
+  });
+
+  describe("Update an order", () => {
+    it("should update an order", async () => {
+      const updateOrder = {
+        userEmail: "newEmail@email.com",
+        orderDate: "2023-7-12",
+        shippingAddress: "new address",
+        billingAddress: "another address",
+        paymentMethod: "cash",
         orderStatus: "completed",
         numItemsOrdered: 2,
         additionalDetails: "Additional order details",
       };
 
-      const createSpy = jest
-        .spyOn(OrderModel, "create")
-        .mockResolvedValue(mockOrder);
+      await request(url).put(`/orders/${id}`).send(updateOrder).expect(204);
+    });
+  });
 
-      const req = {
-        body: { mockOrder },
-      };
-
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn(),
-      };
-
-      await createOrder(req, res);
-
-      console.log("res.status.mock.calls", res.status.mock.calls);
-
-      expect(createSpy).toHaveBeenCalledWith();
-      expect(res.status).toHaveBeenCalledWith(201);
-      expect(res.json).toHaveBeenCalledWith(mockOrder);
+  describe("Delete an order", () => {
+    it("should delete an order", async () => {
+      await request(url).delete(`/orders/${id}`).expect(200);
     });
   });
 });
