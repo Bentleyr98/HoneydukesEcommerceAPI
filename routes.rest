@@ -53,3 +53,15 @@ content-type: application/json
 }
 ### DELETE a product
 DELETE http://localhost:8080/products/649471e4fef8b2872b3a1c34 HTTP/1.1
+
+
+######################
+# PRODUCTION
+######################
+
+// ORDERS
+### Get all orders
+GET https://honeydukesecommerce.onrender.com/orders
+
+### Get order by id
+GET https://honeydukesecommerce.onrender.com//orders/6491c0350c550bf56ffbe5d3
