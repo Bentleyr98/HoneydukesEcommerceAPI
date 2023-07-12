@@ -19,7 +19,12 @@ describe('Test Handlers', () => {
 
   test('POST responds to post /reviews', async () => {
     const postData = {
-      /* post data */
+      userEmail: 'email@example.com',
+      productID: 'testId',
+      reviewText: 'Test review',
+      rating: 3,
+      date: new Date(),
+      otherDetails: 'Test details',
     };
     const res = await request.post('/reviews').send(postData);
     expect(res.header['content-type']).toBe('application/json; charset=utf-8');
@@ -54,7 +59,7 @@ describe('Test Handlers', () => {
   });
 
   test('DELETE responds to /reviews/:id', async () => {
-    const reviewId = '649ba690bad05e5b5a1d54e3';
+    const reviewId = 'YOUR_ID_HERE';
     const res = await request.delete(`/reviews/${reviewId}`);
     expect(res.status).toBe(200);
     // add more assertions for the response body here

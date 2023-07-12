@@ -19,7 +19,14 @@ describe('Test Handlers', () => {
 
   test('POST responds to post /products', async () => {
     const postData = {
-      /* post data */
+      name: 'name',
+      description: 'description',
+      price: 1,
+      quantityInStock: 1,
+      category: 'category',
+      brand: 'brand',
+      images: ['images'],
+      otherDetails: 'other details',
     };
     const res = await request.post('/products').send(postData);
     expect(res.header['content-type']).toBe('application/json; charset=utf-8');
@@ -36,7 +43,14 @@ describe('Test Handlers', () => {
   test('PUT responds to /products/:id', async () => {
     const productId = '649527210f8c83977056a477';
     const updateData = {
-      /* update data */
+      name: 'name',
+      description: 'description',
+      price: 1,
+      quantityInStock: 1,
+      category: 'category',
+      brand: 'brand',
+      images: ['images'],
+      otherDetails: 'other details',
     };
     const res = await request.put(`/products/${productId}`).send(updateData);
     expect(res.status).toBe(204);
@@ -54,7 +68,7 @@ describe('Test Handlers', () => {
   });
 
   test('DELETE responds to /products/:id', async () => {
-    const productId = '6494709ffef8b2872b3a1c2e';
+    const productId = '64af0d82b1aff9bffa11403e';
     const res = await request.delete(`/products/${productId}`);
     expect(res.status).toBe(200);
     // add more assertions for the response body here
