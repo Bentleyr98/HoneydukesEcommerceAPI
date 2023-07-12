@@ -5,6 +5,7 @@ async function getAllOrders(req, res) {
   // #swagger.tags= ['Orders']
   try {
     const orders = await Orders.find();
+    console.log("orders:", orders);
     res.status(200).json(orders);
   } catch (err) {
     res
@@ -17,7 +18,10 @@ async function getOrder(req, res) {
   // #swagger.tags= ['Orders']
   try {
     const orderId = req.params.id;
+    console.log("orderId:", orderId);
     const order = await Orders.findById(orderId);
+    console.log("order:", order);
+
     if (!order) {
       res.status(404).json({ message: "Order not found" });
       return;
@@ -40,9 +44,7 @@ async function createOrder(req, res) {
       billingAddress,
       paymentMethod,
       orderStatus,
-      productID,
-      quantity,
-      price,
+      numItemsOrdered,
       additionalDetails,
     } = req.body;
 
@@ -53,13 +55,7 @@ async function createOrder(req, res) {
       billingAddress,
       paymentMethod,
       orderStatus,
-      orderedProducts: [
-        {
-          productID,
-          quantity,
-          price,
-        },
-      ],
+      numItemsOrdered,
       additionalDetails,
     });
 
@@ -83,9 +79,7 @@ async function updateOrder(req, res) {
       billingAddress: req.body.billingAddress,
       paymentMethod: req.body.paymentMethod,
       orderStatus: req.body.orderStatus,
-      productID: req.body.productID,
-      quantity: req.body.quantity,
-      price: req.body.price,
+      numItemsOrdered: req.body.numItemsOrdered,
       additionalDetails: req.body.additionalDetails,
     };
 
