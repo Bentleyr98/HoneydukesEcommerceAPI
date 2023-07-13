@@ -5,10 +5,10 @@
     "description": "An API designed for the HoneyDukes website",
     "version": "1.0.0"
   },
-  "host": "honeydukesecommerce.onrender.com",
+  "host": "localhost:8080",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "securityDefinitions": {
     "bearerAuth": {
@@ -184,6 +184,9 @@
     },
     "/orders/": {
       "get": {
+        "tags": [
+          "Orders"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -194,10 +197,157 @@
             "description": "Internal Server Error"
           }
         }
+      },
+      "post": {
+        "tags": [
+          "Orders"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userEmail": {
+                  "example": "any"
+                },
+                "orderDate": {
+                  "example": "any"
+                },
+                "shippingAddress": {
+                  "example": "any"
+                },
+                "billingAddress": {
+                  "example": "any"
+                },
+                "paymentMethod": {
+                  "example": "any"
+                },
+                "orderStatus": {
+                  "example": "any"
+                },
+                "productID": {
+                  "example": "any"
+                },
+                "quantity": {
+                  "example": "any"
+                },
+                "price": {
+                  "example": "any"
+                },
+                "additionalDetails": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
     },
     "/orders/{id}": {
       "get": {
+        "tags": [
+          "Orders"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Orders"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userEmail": {
+                  "example": "any"
+                },
+                "orderDate": {
+                  "example": "any"
+                },
+                "shippingAddress": {
+                  "example": "any"
+                },
+                "billingAddress": {
+                  "example": "any"
+                },
+                "paymentMethod": {
+                  "example": "any"
+                },
+                "orderStatus": {
+                  "example": "any"
+                },
+                "productID": {
+                  "example": "any"
+                },
+                "quantity": {
+                  "example": "any"
+                },
+                "price": {
+                  "example": "any"
+                },
+                "additionalDetails": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Orders"
+        ],
         "description": "",
         "parameters": [
           {

@@ -1,26 +1,28 @@
-const swaggerAutogen = require('swagger-autogen')();
-const dotenv = require('dotenv'); // Using dotenv to get our mongodb uri
+const swaggerAutogen = require("swagger-autogen")();
+const dotenv = require("dotenv"); // Using dotenv to get our mongodb uri
 dotenv.config();
 
 const doc = {
   info: {
-    title: 'HoneyDukes API',
-    description: 'An API designed for the HoneyDukes website',
+    title: "HoneyDukes API",
+    description: "An API designed for the HoneyDukes website",
   },
-  host: 'honeydukesecommerce.onrender.com',
-  schemes: ['https'],
+  // host: 'honeydukesecommerce.onrender.com',
+  host: "localhost:8080",
+  // schemes: ['https'],
+  schemes: ["http"],
   securityDefinitions: {
     bearerAuth: {
-      type: 'oauth2',
+      type: "oauth2",
       authorizationUrl: `${process.env.ISSUER_BASE_URL}/authorize`,
-      flow: 'implicit',
+      flow: "implicit",
       scopes: {},
     },
   },
 };
 
-const outputFile = './swagger.json';
-const endpointsFiles = ['./routes/index.js'];
+const outputFile = "./swagger.json";
+const endpointsFiles = ["./routes/index.js"];
 
 /* NOTE: if you use the express Router, you must pass in the 
    'endpointsFiles' only the root file where the route starts,
