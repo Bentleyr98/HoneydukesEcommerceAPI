@@ -1,5 +1,6 @@
-const request = require("supertest");
-const url = "http://localhost:8080";
+const app = require('../server')
+const supertest = require("supertest");
+const request = supertest(app)
 const reviewModel = require("../models/reviews");
 const { getAllReviews, getReview } = require("../controllers/reviews");
 
@@ -99,7 +100,7 @@ describe("Review routes", () => {
         otherDetails: "Test 2 details",
       };
 
-      const res = await request(url)
+      const res = await request
         .post("/reviews/")
         .send(mockReview)
         .expect(201);
@@ -119,13 +120,13 @@ describe("Review routes", () => {
         otherDetails: "Test details",
       };
 
-      await request(url).put(`/reviews/${id}`).send(updateReview).expect(204);
+      await request.put(`/reviews/${id}`).send(updateReview).expect(204);
     });
   });
 
   describe("Delete an review", () => {
     it("should delete an review", async () => {
-      await request(url).delete(`/reviews/${id}`).expect(200);
+      await request.delete(`/reviews/${id}`).expect(200);
     });
   });
 });
