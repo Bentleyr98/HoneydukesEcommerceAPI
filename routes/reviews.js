@@ -6,12 +6,12 @@ const {
   updateReview,
   deleteReview,
 } = require('../controllers/reviews');
-//const { requiresAuth } = require('express-openid-connect');
+const { requiresAuth } = require('express-openid-connect');
 
 router.get('/', getAllReviews);
 router.get('/:id', getReview);
-router.post('/', createReview);
-router.put('/:id', updateReview);
-router.delete('/:id', deleteReview);
+router.post('/', requiresAuth(), createReview);
+router.put('/:id', requiresAuth(), updateReview);
+router.delete('/:id', requiresAuth(), deleteReview);
 
 module.exports = router;
