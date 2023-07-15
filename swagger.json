@@ -5,10 +5,11 @@
     "description": "An API designed for the HoneyDukes website",
     "version": "1.0.0"
   },
-  "host": "localhost:8080",
+  "host": "honeydukesecommerce.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "http",
+    "https"
   ],
   "securityDefinitions": {
     "bearerAuth": {
@@ -21,6 +22,9 @@
   "paths": {
     "/": {
       "get": {
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -32,6 +36,9 @@
     },
     "/profile": {
       "get": {
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -50,6 +57,9 @@
     },
     "/users/": {
       "get": {
+        "tags": [
+          "Users"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -62,6 +72,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -98,6 +111,9 @@
     },
     "/users/{id}": {
       "get": {
+        "tags": [
+          "Users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -120,6 +136,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -163,6 +182,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -539,6 +561,9 @@
     },
     "/reviews/": {
       "get": {
+        "tags": [
+          "Reviews"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -551,6 +576,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Reviews"
+        ],
         "description": "",
         "parameters": [
           {
@@ -593,6 +621,9 @@
     },
     "/reviews/{id}": {
       "get": {
+        "tags": [
+          "Reviews"
+        ],
         "description": "",
         "parameters": [
           {
@@ -615,6 +646,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Reviews"
+        ],
         "description": "",
         "parameters": [
           {
@@ -664,6 +698,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Reviews"
+        ],
         "description": "",
         "parameters": [
           {
