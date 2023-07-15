@@ -1,5 +1,8 @@
-const request = require('supertest');
-const url = "http://localhost:8080";
+// const request = require('supertest');
+// const url = "http://localhost:8080";
+const app = require('../server');
+const supertest = require('supertest');
+const request = supertest(app);
 const ProductModel = require("../models/products")
 const {getAllProducts, getProduct} = require("../controllers/products")
 
@@ -110,7 +113,7 @@ describe('Product routes', () => {
         otherDetails: "more details",
       };
 
-      const res = await request(url)
+      const res = await request
         .post("/products")
         .send(mockProduct)
         .expect(201);
@@ -132,13 +135,13 @@ describe('Product routes', () => {
         otherDetails: "more details",
       };
 
-      await request(url).put(`/products/${id}`).send(updateProduct).expect(204);
+      await request.put(`/products/${id}`).send(updateProduct).expect(204);
     });
   });
 
   describe("Delete a product", () => {
     it("should delete a product", async () => {
-      await request(url).delete(`/products/${id}`).expect(200);
+      await request.delete(`/products/${id}`).expect(200);
     });
   });
 });
