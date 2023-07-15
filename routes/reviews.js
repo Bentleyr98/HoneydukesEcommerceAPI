@@ -6,7 +6,7 @@ const {
   updateReview,
   deleteReview,
 } = require('../controllers/reviews');
-const { requiresAuth } = require('express-openid-connect');
+//const { requiresAuth } = require('express-openid-connect');
 
 router.get('/', getAllReviews);
 router.get('/:id', getReview);
