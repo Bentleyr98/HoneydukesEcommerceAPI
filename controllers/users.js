@@ -1,6 +1,7 @@
 const Users = require('../models/users');
 
 const getAllUsers = async (req, res) => {
+  // #swagger.tags= ['Users']
   try {
     const result = await Users.find();
     res.status(200).json(result);
@@ -12,6 +13,7 @@ const getAllUsers = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
+  // #swagger.tags= ['Users']
   try {
     const userId = req.params.id;
     const result = await Users.findById(userId);
@@ -28,6 +30,7 @@ const getUser = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
+  // #swagger.tags= ['Users']
   try {
     const { email, shippingAddress, billingAddress, paymentMethods } = req.body;
 
@@ -48,6 +51,7 @@ const createUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
+  // #swagger.tags= ['Users']
   try {
     const userId = req.params.id;
     const User = {
@@ -72,6 +76,7 @@ const updateUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
+  // #swagger.tags= ['Users']
   try {
     const userId = req.params.id;
     const response = await Users.findByIdAndDelete(userId);
