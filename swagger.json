@@ -111,6 +111,9 @@
           "200": {
             "description": "OK"
           },
+          "404": {
+            "description": "Not Found"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -228,13 +231,7 @@
                 "orderStatus": {
                   "example": "any"
                 },
-                "productID": {
-                  "example": "any"
-                },
-                "quantity": {
-                  "example": "any"
-                },
-                "price": {
+                "numItemsOrdered": {
                   "example": "any"
                 },
                 "additionalDetails": {
@@ -316,13 +313,7 @@
                 "orderStatus": {
                   "example": "any"
                 },
-                "productID": {
-                  "example": "any"
-                },
-                "quantity": {
-                  "example": "any"
-                },
-                "price": {
+                "numItemsOrdered": {
                   "example": "any"
                 },
                 "additionalDetails": {
@@ -372,6 +363,9 @@
     },
     "/products/": {
       "get": {
+        "tags": [
+          "Products"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -384,6 +378,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Products"
+        ],
         "description": "",
         "parameters": [
           {
@@ -432,6 +429,9 @@
     },
     "/products/{id}": {
       "get": {
+        "tags": [
+          "Products"
+        ],
         "description": "",
         "parameters": [
           {
@@ -454,6 +454,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Products"
+        ],
         "description": "",
         "parameters": [
           {
@@ -509,6 +512,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Products"
+        ],
         "description": "",
         "parameters": [
           {
@@ -543,10 +549,121 @@
             "description": "Internal Server Error"
           }
         }
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userEmail": {
+                  "example": "any"
+                },
+                "productID": {
+                  "example": "any"
+                },
+                "reviewText": {
+                  "example": "any"
+                },
+                "rating": {
+                  "example": "any"
+                },
+                "date": {
+                  "example": "any"
+                },
+                "otherDetails": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
     },
     "/reviews/{id}": {
       "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userEmail": {
+                  "example": "any"
+                },
+                "productID": {
+                  "example": "any"
+                },
+                "reviewText": {
+                  "example": "any"
+                },
+                "rating": {
+                  "example": "any"
+                },
+                "date": {
+                  "example": "any"
+                },
+                "otherDetails": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
         "description": "",
         "parameters": [
           {
