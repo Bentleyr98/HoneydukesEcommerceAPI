@@ -1,6 +1,7 @@
 const Reviews = require('../models/reviews');
 
 const getAllReviews = async (req, res, next) => {
+    // #swagger.tags= ['Reviews']
   try {
     const reviews = await Reviews.find();
     res.status(200).json(reviews);
@@ -15,6 +16,7 @@ const getAllReviews = async (req, res, next) => {
 };
 
 async function getReview(req, res) {
+  // #swagger.tags= ['Reviews']
   try {
     const review_id = req.params.id;
     const review = await Reviews.findById(review_id);
@@ -34,6 +36,7 @@ async function getReview(req, res) {
 }
 
 const createReview = async (req, res, next) => {
+  // #swagger.tags= ['Reviews']
   try {
     const { userEmail, productID, reviewText, rating, date, otherDetails } =
       req.body;
@@ -55,6 +58,7 @@ const createReview = async (req, res, next) => {
 };
 
 const updateReview = async (req, res, next) => {
+  // #swagger.tags= ['Reviews']
   try {
     const review_id = req.params.id;
     const updatedReview = {
@@ -85,6 +89,7 @@ const updateReview = async (req, res, next) => {
 };
 
 const deleteReview = async (req, res, next) => {
+  // #swagger.tags= ['Reviews']
   try {
     const review_id = req.params.id;
     const deletedReview = await Reviews.findByIdAndDelete(review_id);
