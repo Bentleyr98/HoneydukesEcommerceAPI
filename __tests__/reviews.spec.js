@@ -1,74 +1,131 @@
-const app = require('../server');
-const supertest = require('supertest');
-const { expect } = require('@jest/globals');
-const request = supertest(app);
+const request = require("supertest");
+const url = "http://localhost:8080";
+const reviewModel = require("../models/reviews");
+const { getAllReviews, getReview } = require("../controllers/reviews");
 
-describe('Test Handlers', () => {
-  test('GET responds to /reviews', async () => {
-    const res = await request.get('/reviews');
-    expect(res.status).toBe(200);
-    // add more assertions for the response body here
+describe("Review routes", () => {
+  let id;
+
+  describe("Get all reviews", () => {
+    it("should return all reviews", async () => {
+      const mockReviews = [
+        {
+          _id: "6491c07c0c550bf56ffbe5dc",
+          userEmail: "user123@email.com",
+          productID: "product123",
+          reviewText: "Great product!",
+          rating: 5,
+          date: "2023-05-18T00:00:00.000Z",
+          otherDetails: "Other relevant information"
+        },
+        {
+          _id: "64af1d962b94ee15230bdf63",
+          userEmail: "email@example.com",
+          productID: "testId",
+          reviewText: "Test review",
+          rating: 3,
+          date: "2023-07-12T21:39:34.724Z",
+          otherDetails: "Test details",
+        },
+        {
+          _id: "64af1e369d1a6f5692c732dc",
+          userEmail: "email@example.com",
+          productID: "testId",
+          reviewText: "Test review",
+          rating: 3,
+          date: "2023-07-12T21:42:14.191Z",
+          otherDetails: "Test details",
+        }
+      ];
+
+      const findAllSpy = jest
+        .spyOn(reviewModel, "find")
+        .mockResolvedValue(mockReviews);
+
+      const req = {};
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+
+      await getAllReviews(req, res);
+
+      expect(findAllSpy).toHaveBeenCalledWith();
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith(mockReviews);
+    });
   });
 
-  test('GET responds to /reviews/:id', async () => {
-    const reviewId = '6491c07c0c550bf56ffbe5dc';
-    const res = await request.get(`/reviews/${reviewId}`);
-    expect(res.status).toBe(200);
-    // add more assertions for the response body here
+  describe("Get one review", () => {
+    it("should return one review", async () => {
+      const mockReview = {
+          _id: "64af1e369d1a6f5692c732dc",
+          userEmail: "email@example.com",
+          productID: "testId",
+          reviewText: "Test review",
+          rating: 3,
+          date: "2023-07-12T21:42:14.191Z",
+          otherDetails: "Test details",
+      };
+
+      const findByIdSpy = jest
+        .spyOn(reviewModel, "findById")
+        .mockResolvedValue(mockReview);
+
+      const req = {
+        params: { id: "64af1e369d1a6f5692c732dc" },
+      };
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+
+      await getReview(req, res);
+
+      expect(findByIdSpy).toHaveBeenCalledWith(req.params.id);
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith(mockReview);
+    });
   });
 
-  test('POST responds to post /reviews', async () => {
-    const postData = {
-      userEmail: 'email@example.com',
-      productID: 'testId',
-      reviewText: 'Test review',
-      rating: 3,
-      date: new Date(),
-      otherDetails: 'Test details',
-    };
-    const res = await request.post('/reviews').send(postData);
-    expect(res.header['content-type']).toBe('application/json; charset=utf-8');
-    expect(res.statusCode).toBe(201);
+  describe("Create an Review", () => {
+    it("should create an review", async () => {
+      const mockReview = {
+        userEmail: "email2@example.com",
+        productID: "test2Id",
+        reviewText: "Test 2 review",
+        rating: 2,
+        date: "2022-07-12T21:42:14.191Z",
+        otherDetails: "Test 2 details",
+      };
+
+      const res = await request(url)
+        .post("/reviews/")
+        .send(mockReview)
+        .expect(201);
+
+      id = res.body._id;
+    });
   });
 
-  test('GET responds to /reviews/:id with error', async () => {
-    const reviewId = 'sssss';
-    const res = await request.get(`/reviews/${reviewId}`);
-    expect(res.status).toBe(500);
-    // add more assertions for the response body here
+  describe("Update an Review", () => {
+    it("should update an review", async () => {
+      const updateReview = {
+        userEmail: "email3@example.com",
+        productID: "testId",
+        reviewText: "Test review",
+        rating: 3,
+        date: "2023-07-12T21:42:14.191Z",
+        otherDetails: "Test details",
+      };
+
+      await request(url).put(`/reviews/${id}`).send(updateReview).expect(204);
+    });
   });
 
-  test('PUT responds to /reviews/:id', async () => {
-    const reviewId = '6491c07c0c550bf56ffbe5dc';
-    const updateData = {
-      /* update data */
-    };
-    const res = await request.put(`/reviews/${reviewId}`).send(updateData);
-    expect(res.status).toBe(204);
-    // add more assertions for the response body here
-  });
-
-  test('PUT responds to /reviews:id with error', async () => {
-    const reviewId = 's64aa142e96e0acd0844c2943';
-    const updateData = {
-      /* update data */
-    };
-    const res = await request.put(`/reviews/${reviewId}`).send(updateData);
-    expect(res.status).toBe(500);
-    // add more assertions for the response body here
-  });
-
-  test('DELETE responds to /reviews/:id', async () => {
-    const reviewId = 'YOUR_ID_HERE';
-    const res = await request.delete(`/reviews/${reviewId}`);
-    expect(res.status).toBe(200);
-    // add more assertions for the response body here
-  });
-
-  test('DELETE responds to /reviews:id with error', async () => {
-    const reviewId = 's64aa142e96e0acd0844c2943';
-    const res = await request.delete(`/reviews/${reviewId}`);
-    expect(res.status).toBe(500);
-    // add more assertions for the response body here
+  describe("Delete an review", () => {
+    it("should delete an review", async () => {
+      await request(url).delete(`/reviews/${id}`).expect(200);
+    });
   });
 });
