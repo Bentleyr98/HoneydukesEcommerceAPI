@@ -1,83 +1,144 @@
-const app = require('../server');
-const supertest = require('supertest');
-const { expect } = require('@jest/globals');
-const request = supertest(app);
+const request = require('supertest');
+const url = "http://localhost:8080";
+const ProductModel = require("../models/products")
+const {getAllProducts, getProduct} = require("../controllers/products")
 
-describe('Test Handlers', () => {
-  test('GET responds to /products', async () => {
-    const res = await request.get('/products');
-    expect(res.status).toBe(200);
-    // add more assertions for the response body here
+describe('Product routes', () => {
+  let id;
+
+  describe("Get all orders", () => {
+    it("should return all products", async () => {
+      const mockProduct = [
+        {
+          _id: "649527210f8c83977056a477",
+          name: "Hersey Kiss",
+          description: "Delightful small chocolate.",
+          price: "4.99",
+          quantityInStock: "20",
+          category: "candy",
+          brand: "Hersey",
+          images: "kisses1234.png",
+          otherDetails: "It should be store in a cool place.",
+        },
+        {
+          _id: "64af0bd80d03a459c91f204d",
+          name: "Twizzlers",
+          description: "Strawberry flavored red rope like candy.",
+          price: "5.99",
+          quantityInStock: "55",
+          category: "candy",
+          brand: "Hersey",
+          images: "image.jpg",
+          otherDetails: "any",
+        },
+        {
+          _id: "64af0dc2d4492a832e317b9c",
+          name: "Carmel Swirled Fudge",
+          description: "It's made of carmel and chocolate fudge.",
+          price: "12.79",
+          quantityInStock: "5",
+          category: "Candy",
+          brand: "Fudge Makers",
+          images: "fudge.jpeg",
+          otherDetails: "It won't last long.",
+        },
+      ];
+
+      const findAllSpy = jest
+        .spyOn(ProductModel, "find")
+        .mockResolvedValue(mockProduct);
+
+      const req = {};
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+
+      await getAllProducts(req, res);
+
+      expect(findAllSpy).toHaveBeenCalledWith();
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith(mockProduct);
+    });
+  });
+  
+
+  describe("Get one product", () => {
+    it("should return one product", async () => {
+      const mockProduct = {
+        _id: "649527210f8c83977056a477",
+        name: "Hersey Kiss",
+        description: "Delightful small chocolate.",
+        price: "4.99",
+        quantityInStock: "20",
+        category: "candy",
+        brand: "Hersey",
+        images: "kisses1234.png",
+        otherDetails: "It should be store in a cool place.",
+      };
+
+      const findByIdSpy = jest
+        .spyOn(ProductModel, "findById")
+        .mockResolvedValue(mockProduct);
+
+      const req = {
+        params: { id: "649527210f8c83977056a477" },
+      };
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+
+      await getProduct(req, res);
+
+      expect(findByIdSpy).toHaveBeenCalledWith(req.params.id);
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith(mockProduct);
+    });
   });
 
-  test('GET responds to /products/:id', async () => {
-    const productId = '649527210f8c83977056a477';
-    const res = await request.get(`/products/${productId}`);
-    expect(res.status).toBe(200);
-    // add more assertions for the response body here
+  describe("Create a new product", () => {
+    it("should create a new product", async () => {
+      const mockProduct = {
+        name: "new product",
+        description: "some kind of food",
+        price: "2",
+        quantityInStock: "80",
+        category: "food",
+        brand: "dole",
+        images: "image1.png",
+        otherDetails: "more details",
+      };
+
+      const res = await request(url)
+        .post("/products")
+        .send(mockProduct)
+        .expect(201);
+
+      id = res.body._id;
+    });
   });
 
-  test('POST responds to post /products', async () => {
-    const postData = {
-      name: 'name',
-      description: 'description',
-      price: 1,
-      quantityInStock: 1,
-      category: 'category',
-      brand: 'brand',
-      images: ['images'],
-      otherDetails: 'other details',
-    };
-    const res = await request.post('/products').send(postData);
-    expect(res.header['content-type']).toBe('application/json; charset=utf-8');
-    expect(res.statusCode).toBe(201);
+  describe("Update a product", () => {
+    it("should update a product", async () => {
+      const updateProduct = {
+        name: "new product",
+        description: "some kind of food",
+        price: "15",
+        quantityInStock: "37",
+        category: "food",
+        brand: "dole",
+        images: "newimage.png",
+        otherDetails: "more details",
+      };
+
+      await request(url).put(`/products/${id}`).send(updateProduct).expect(204);
+    });
   });
 
-  test('GET responds to /products/:id with error', async () => {
-    const productId = 'sssss';
-    const res = await request.get(`/products/${productId}`);
-    expect(res.status).toBe(500);
-    // add more assertions for the response body here
-  });
-
-  test('PUT responds to /products/:id', async () => {
-    const productId = '649527210f8c83977056a477';
-    const updateData = {
-      name: 'name',
-      description: 'description',
-      price: 1,
-      quantityInStock: 1,
-      category: 'category',
-      brand: 'brand',
-      images: ['images'],
-      otherDetails: 'other details',
-    };
-    const res = await request.put(`/products/${productId}`).send(updateData);
-    expect(res.status).toBe(204);
-    // add more assertions for the response body here
-  });
-
-  test('PUT responds to /products:id with error', async () => {
-    const productId = 's64aa142e96e0acd0844c2943';
-    const updateData = {
-      /* update data */
-    };
-    const res = await request.put(`/products/${productId}`).send(updateData);
-    expect(res.status).toBe(500);
-    // add more assertions for the response body here
-  });
-
-  test('DELETE responds to /products/:id', async () => {
-    const productId = '64af0d82b1aff9bffa11403e';
-    const res = await request.delete(`/products/${productId}`);
-    expect(res.status).toBe(200);
-    // add more assertions for the response body here
-  });
-
-  test('DELETE responds to /products:id with error', async () => {
-    const productId = 's64aa142e96e0acd0844c2943';
-    const res = await request.delete(`/products/${productId}`);
-    expect(res.status).toBe(500);
-    // add more assertions for the response body here
+  describe("Delete a product", () => {
+    it("should delete a product", async () => {
+      await request(url).delete(`/products/${id}`).expect(200);
+    });
   });
 });
